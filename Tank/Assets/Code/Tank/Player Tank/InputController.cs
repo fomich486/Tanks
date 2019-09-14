@@ -39,12 +39,17 @@ namespace Controlls
 
         private void ControllShootInput()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         private void ChangeWeaponInput()
         {
-            throw new NotImplementedException();
+            if (Input.GetMouseButtonDown(0))
+            {
+                print("Inputed to shoot");
+                playerTank.Shoot();
+            }
+            //throw new NotImplementedException();
         }
     }
 }

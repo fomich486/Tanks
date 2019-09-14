@@ -12,10 +12,12 @@ namespace Tanks
             get => currentDirection;
             set
             {
-                if (value == Vector3.right || value == Vector3.left || value == Vector3.forward || value == Vector3.back || value == Vector3.zero || value == Vector3.zero)
+                if (value == Vector3.right || value == Vector3.left || value == Vector3.forward || value == Vector3.back || value == Vector3.zero )
+                    {
                     currentDirection = value;
+                }
                 else
-                   return;
+                    return;
             }
         }
 
@@ -40,14 +42,21 @@ namespace Tanks
                 transform.rotation = Quaternion.LookRotation(currentDirection);
         }
 
-        protected override void Shoot()
+        public override void Shoot()
         {
-            
+            currentWeapon.Use();
         }
 
         protected override void Die()
         {
             throw new System.NotImplementedException();
+        }
+
+        private void Start()
+        {
+            GameObject _weapon = Resources.Load("Tower") as GameObject;
+            currentWeapon = Instantiate(_weapon.GetComponent<Weapons.Weapon>(), MuzzlePosition, Quaternion.identity) as Weapons.Weapon;
+            currentWeapon.Init(this);
         }
     }
 }

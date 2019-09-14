@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tanks.Weapons;
 
 namespace Tanks
 {
     public abstract class Tank : MonoBehaviour
     {
+        protected Weapon currentWeapon;
+        public Vector3 MuzzlePosition { get => transform.position + Vector3.up * transform.localScale.y / 2; }
+
         private float nextUpdateTime = 0f;
         [SerializeField]
         private float updateDelay = 0.2f;
@@ -14,7 +18,7 @@ namespace Tanks
         abstract public int Armor { get; set; }
 
         protected abstract void Move();
-        protected abstract void Shoot();
+        public abstract void Shoot();
 
         protected virtual bool CheckBorders(Vector3 _nextPosition)
         {
