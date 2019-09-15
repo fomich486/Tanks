@@ -23,9 +23,18 @@ public class GameController : MonoBehaviour
     private Transform spawnedPlayerTank;
     public Transform SpawnedPlayerTank { get => spawnedPlayerTank; }
 
+    //Move to level
     public Vector2 MapSize
     {
         get => new Vector2(2 * width + 1, 2 * height + 1);
+    }
+
+    public float ScreenDiagonal
+    {
+        get
+        {
+            return Mathf.Sqrt(Mathf.Pow(width, 2) + Mathf.Pow(height, 2));
+        }
     }
 
     private void Awake()

@@ -21,6 +21,7 @@ namespace Controlls
             ControllMovementInput();
             ControllShootInput();
             ChangeWeaponInput();
+            LookAtMouse();
         }
 
         private void ControllMovementInput()
@@ -39,17 +40,32 @@ namespace Controlls
 
         private void ControllShootInput()
         {
-           // throw new NotImplementedException();
+            if (Input.GetMouseButtonDown(0))
+            {
+                playerTank.Shoot();
+            }
         }
 
         private void ChangeWeaponInput()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                print("Inputed to shoot");
-                playerTank.Shoot();
-            }
+
             //throw new NotImplementedException();
+        }
+
+        private void LookAtMouse()
+        {
+            Plane plane = new Plane(Vector3.up, transform.position);
+
+
+            float distance;
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (plane.Raycast(ray, out distance))
+            {
+                Vector3 position = ray.GetPoint(distance);
+                playerTank.CurrentWeapon.transform.LookAt(position);
+            }
         }
     }
 }

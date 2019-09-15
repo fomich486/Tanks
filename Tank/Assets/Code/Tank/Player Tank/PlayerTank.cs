@@ -6,6 +6,10 @@ namespace Tanks
 {
     public class PlayerTank : Tank
     {
+        public Weapons.Weapon CurrentWeapon
+        {
+            get => currentWeapon;
+        }
         public override Vector3 CurrentDirection
         {
             get => currentDirection;
@@ -25,11 +29,5 @@ namespace Tanks
             throw new System.NotImplementedException();
         }
 
-        protected override void Start()
-        {
-            GameObject _weapon = Resources.Load("Tower") as GameObject;
-            currentWeapon = Instantiate(_weapon.GetComponent<Weapons.Weapon>(), TowerPosition, Quaternion.identity) as Weapons.Weapon;
-            currentWeapon.Init(this);
-        }
     }
 }

@@ -22,6 +22,7 @@ namespace Tanks
 
         #region Weapon
         protected Weapon currentWeapon;
+        protected bool canShoot = true;
         public Vector3 TowerPosition { get => transform.position + Vector3.up * transform.localScale.y / 2; }
         #endregion
 
@@ -43,7 +44,7 @@ namespace Tanks
         protected virtual void Move()
         {
             Vector3 _nextPosition = transform.position + CurrentDirection;
-            if (!CheckBorders(_nextPosition))
+            if (!CheckBorders(_nextPosition)) // TODO: add checker for filled tile
             {
                 transform.position = _nextPosition;
             }
@@ -54,7 +55,8 @@ namespace Tanks
 
         public virtual void Shoot()
         {
-            currentWeapon.Use();
+            if(canShoot)
+                currentWeapon.Use();
         }
 
         protected abstract void Die();
@@ -76,12 +78,19 @@ namespace Tanks
             }
             return false;
         }
+
+        protected virtual void SpawnTower()
+        {
+            GameObject _weapon = Resources.Load("Tower") as GameObject;
+            currentWeapon = Instantiate(_weapon.GetComponent<Weapons.Weapon>(), TowerPosition, Quaternion.identity) as Weapons.Weapon;
+            currentWeapon.Init(this);
+        }
         #endregion
 
         #region BehaviourMethods
         protected virtual void Start()
         {
-
+            SpawnTower();
         }
 
         protected virtual void Update()

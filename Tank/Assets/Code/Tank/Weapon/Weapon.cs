@@ -31,23 +31,6 @@ namespace Tanks.Weapons
         private void Update()
         {
             FollowTank();
-            LookAtMouse();
-        }
-
-        private void LookAtMouse()
-        {
-            Plane plane = new Plane(Vector3.up, transform.position);
-
-
-            float distance;
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (plane.Raycast(ray, out distance))
-            {
-                Vector3 position = ray.GetPoint(distance);
-                transform.LookAt(position);
-            }
         }
 
         private void FollowTank()
