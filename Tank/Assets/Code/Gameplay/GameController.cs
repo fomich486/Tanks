@@ -17,6 +17,12 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int height = 3;
 
+    [Header("PlayerTank")]
+    [SerializeField]
+    private Transform playerPrefab;
+    private Transform spawnedPlayerTank;
+    public Transform SpawnedPlayerTank { get => spawnedPlayerTank; }
+
     public Vector2 MapSize
     {
         get => new Vector2(2 * width + 1, 2 * height + 1);
@@ -31,6 +37,8 @@ public class GameController : MonoBehaviour
 
         Level lvl = Instantiate(level) as Level;
         lvl.Init(MapSize);
+
+        spawnedPlayerTank  = Instantiate(playerPrefab, Vector3.up * 0.5f, Quaternion.identity) as Transform;
     }
 
 }

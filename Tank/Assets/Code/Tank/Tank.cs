@@ -7,18 +7,57 @@ namespace Tanks
 {
     public abstract class Tank : MonoBehaviour
     {
-        protected Weapon currentWeapon;
-        public Vector3 MuzzlePosition { get => transform.position + Vector3.up * transform.localScale.y / 2; }
-
+        #region Movement
         private float nextUpdateTime = 0f;
         [SerializeField]
-        private float updateDelay = 0.2f;
+        protected float updateDelay = 0.2f;
 
+        protected Vector3 currentDirection;
+        public virtual Vector3 CurrentDirection
+        {
+            get => currentDirection;
+            set => currentDirection = value;
+        }
+        #endregion
+
+        #region Weapon
+        protected Weapon currentWeapon;
+        public Vector3 TowerPosition { get => transform.position + Vector3.up * transform.localScale.y / 2; }
+        #endregion
+
+        #region Health
         protected int armor;
-        abstract public int Armor { get; set; }
+        public virtual int Armor
+        {
+            get => armor;
+            set
+            {
+                if (armor <= 0)
+                    Die();
+            }
+        }
+        #endregion
 
-        protected abstract void Move();
-        public abstract void Shoot();
+        #region Methods
+
+        protected virtual void Move()
+        {
+            Vector3 _nextPosition = transform.position + CurrentDirection;
+            if (!CheckBorders(_nextPosition))
+            {
+                transform.position = _nextPosition;
+            }
+
+            if (currentDirection != Vector3.zero)
+                transform.rotation = Quaternion.LookRotation(currentDirection);
+        }
+
+        public virtual void Shoot()
+        {
+            currentWeapon.Use();
+        }
+
+        protected abstract void Die();
 
         protected virtual bool CheckBorders(Vector3 _nextPosition)
         {
@@ -37,8 +76,15 @@ namespace Tanks
             }
             return false;
         }
+        #endregion
 
-        protected void Update()
+        #region BehaviourMethods
+        protected virtual void Start()
+        {
+
+        }
+
+        protected virtual void Update()
         {
             if (Time.time > nextUpdateTime)
             {
@@ -46,7 +92,6 @@ namespace Tanks
                 nextUpdateTime = Time.time + updateDelay;
             }
         }
-
-        protected abstract void Die();
+        #endregion
     }
 }

@@ -52,7 +52,7 @@ namespace Tanks.Weapons
 
         private void FollowTank()
         {
-            transform.position = tankToFollow.MuzzlePosition;
+            transform.position = tankToFollow.TowerPosition;
         }
     }
 }
