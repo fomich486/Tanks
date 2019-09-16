@@ -78,7 +78,7 @@ namespace Tanks
 
         protected virtual bool CheckBorders(Vector3 _nextPosition)
         {
-            Vector2 _borders = GameController.Instance.MapSize / 2 - Vector2.one * 0.5f;//0.5f - tileSize
+            Vector2 _borders = GameController.Instance.MapSize / 2 - new Vector2(transform.localScale.x, transform.localScale.z)/2;
             if (Mathf.Abs(_nextPosition.x) > _borders.x)
             {
                 int dirCoef = -1 * (int)(Mathf.Abs(_nextPosition.x) / _nextPosition.x);

@@ -54,6 +54,7 @@ namespace Tanks
             maxArmor = 4;
             speed = GameController.Instance.PlayerComunicator.Speed / 1.4f;
             weaponType = FactorySpace.WeaponsTypes.Simple;
+            atackDistance = GameController.Instance.ScreenDiagonal / 3;
         }
     }
 }

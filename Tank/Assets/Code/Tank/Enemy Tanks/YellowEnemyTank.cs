@@ -43,6 +43,8 @@ namespace Tanks {
             startFollowMovementTime = Time.time + randomMovementTime;
             changeRandomDirectionTime = Time.time;
             weaponType = FactorySpace.WeaponsTypes.Double;
+
+            atackDistance = Mathf.Infinity;
         }
     }
 }

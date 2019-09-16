@@ -19,8 +19,6 @@ namespace Tanks
         {
             base.Start();
 
-            atackDistance = GameController.Instance.ScreenDiagonal / 3;
-
             healthBarOffset = Vector3.back * (transform.localScale.z / 2 + 0.1f);
             healthBar = Instantiate(Resources.Load("CanvasHealthbar") as GameObject, healthbarPosition, Quaternion.LookRotation(Vector3.up)).GetComponent<EnemyHealthbar>();
         }

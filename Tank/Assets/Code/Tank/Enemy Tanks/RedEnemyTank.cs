@@ -10,7 +10,7 @@ namespace Tanks
         float lastDistance = 0;
         float basicIteraion = 0;
         bool isChasing;
-        protected float iterationTime = .5f;
+        protected float iterationTime = .75f;
         protected float nextChangeIterationTime;
         protected float chaseUpdateCoef = 1.2f;
         protected float runUpdateCoef = 1.2f;
@@ -34,7 +34,6 @@ namespace Tanks
                 else
                 {
                     speed = basicIteraion * runUpdateCoef;
-                    currentDirection = transform.position - _currentPlayerPosition;
                 }
 
                 lastPlayerPosition = _currentPlayerPosition;
@@ -43,6 +42,10 @@ namespace Tanks
             else
             {
                 isChasing = _currentDistance >= lastDistance;
+                if (!isChasing)
+                {
+                    currentDirection = transform.position - _currentPlayerPosition;
+                }
                 nextChangeIterationTime = Time.time + iterationTime;
             }
             return currentDirection.normalized;
@@ -55,6 +58,7 @@ namespace Tanks
             basicIteraion = GameController.Instance.PlayerComunicator.Speed;
             lastPlayerPosition = GameController.Instance.PlayerComunicator.Position;
             weaponType = FactorySpace.WeaponsTypes.Double;
+            atackDistance = GameController.Instance.ScreenDiagonal / 1.5f;
         }
     }
 }
