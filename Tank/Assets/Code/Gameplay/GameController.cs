@@ -17,11 +17,11 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int height = 3;
 
+    //TODO : Change it all on PlayerTank for information for enemy tanks
     [Header("PlayerTank")]
     [SerializeField]
     private Transform playerPrefab;
-    private Transform spawnedPlayerTank;
-    public Transform SpawnedPlayerTank { get => spawnedPlayerTank; }
+    public IPlayerComunicator PlayerComunicator;
 
     //Move to level
     public Vector2 MapSize
@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
         Level lvl = Instantiate(level) as Level;
         lvl.Init(MapSize);
 
-        spawnedPlayerTank  = Instantiate(playerPrefab, Vector3.up * 0.5f, Quaternion.identity) as Transform;
+        PlayerComunicator  = (Instantiate(playerPrefab, Vector3.up * 0.5f, Quaternion.identity) as Transform).GetComponent<IPlayerComunicator>();
     }
 
 }

@@ -7,19 +7,20 @@ namespace Tanks
     public class GreenEnemyTank : EnemyTank
     { 
         private Vector3 lastMoveDirection;
+        protected float atackDistance;
 
         public override Vector3 CurrentDirection
         {
             get
             {
-                return GetSimpleTankFollowDirection();
+                return GetFollowDirection();
             }
         }
 
-        protected Vector3 GetSimpleTankFollowDirection()
+        protected virtual Vector3 GetFollowDirection()
         {
             canShoot = false;
-            Vector3 _playerPosition = GameController.Instance.SpawnedPlayerTank.position;
+            Vector3 _playerPosition = GameController.Instance.PlayerComunicator.Position;
             Vector3 _directionToPlayer = _playerPosition - transform.position;
 
             Debug.DrawRay(transform.position, _directionToPlayer.normalized * 10, Color.red);
@@ -27,8 +28,8 @@ namespace Tanks
 
             float _distance = Vector3.Distance(transform.position, _playerPosition);
 
-
-            if (_distance < GameController.Instance.ScreenDiagonal / 3)
+            //TODO : add something like attack distance for yellow tank
+            if (_distance < atackDistance)
             {
                 if (_directionToPlayer.x == 0 || _directionToPlayer.z == 0)
                 {
@@ -62,22 +63,14 @@ namespace Tanks
             base.Start();
             reward = 5;
             armor = 4;
-            updateDelay /= 1.4f;
+            updateDelay = GameController.Instance.PlayerComunicator.UpdateRate/ 1.4f;
+            atackDistance = GameController.Instance.ScreenDiagonal / 3;
         }
 
-        //public override void Shoot()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        protected override void Die()
+        public override void Die()
         {
-            throw new System.NotImplementedException();
+            base.Die();
         }
 
-        //protected override void Move()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
     }
 }

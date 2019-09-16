@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Tanks
 {
-    public class PlayerTank : Tank
+    //TODO: Make comunication Interface for gamecontroller
+    public class PlayerTank : Tank,IPlayerComunicator
     {
         public Weapons.Weapon CurrentWeapon
         {
@@ -24,9 +25,13 @@ namespace Tanks
             }
         }
 
-        protected override void Die()
+        public Vector3 Position => transform.position;
+
+        public float UpdateRate => updateDelay;
+
+        public override void Die()
         {
-            throw new System.NotImplementedException();
+            base.Die();
         }
 
     }

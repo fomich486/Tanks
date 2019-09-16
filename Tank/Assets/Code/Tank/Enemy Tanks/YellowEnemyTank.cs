@@ -5,36 +5,32 @@ using UnityEngine;
 namespace Tanks {
     public class YellowEnemyTank : GreenEnemyTank
     {
-        float randomMovementTime = 2f;
-        float followMovementTime = 2f;
-        float startFollowMovementTime;
-        float changeRandomDirectionTime;
-        int changeDirectionTimes = 3;
+        protected float randomMovementTime = 2f;
+        protected float followMovementTime = 2f;
+        protected float startFollowMovementTime;
+        protected float changeRandomDirectionTime;
+        protected int changeDirectionTimes = 3;
 
-        public override Vector3 CurrentDirection
+        protected override Vector3 GetFollowDirection()
         {
-            get
+            if (Time.time < startFollowMovementTime)
             {
-                if (Time.time < startFollowMovementTime)
+                if (Time.time > changeRandomDirectionTime)
                 {
-                    if (Time.time > changeRandomDirectionTime)
-                    {
-                        currentDirection = Utility.GetRandomDirectionForTankMovement(currentDirection);
-                        print("Direction changed and current is " + currentDirection);
-                        changeRandomDirectionTime = Time.time + randomMovementTime/ changeDirectionTimes;
-                    }
-                    return currentDirection;
+                    currentDirection = Utility.GetRandomDirectionForTankMovement(currentDirection);
+                    changeRandomDirectionTime = Time.time + randomMovementTime / changeDirectionTimes;
                 }
-                else if (Time.time < startFollowMovementTime + followMovementTime - updateDelay)
-                {
-                    return GetSimpleTankFollowDirection();
-                }
-                else
-                {
-                    startFollowMovementTime = Time.time + randomMovementTime;
-                    changeRandomDirectionTime = Time.time;
-                    return GetSimpleTankFollowDirection();
-                }
+                return currentDirection;
+            }
+            else if (Time.time < startFollowMovementTime + followMovementTime - updateDelay)
+            {
+                return base.GetFollowDirection();
+            }
+            else
+            {
+                startFollowMovementTime = Time.time + randomMovementTime;
+                changeRandomDirectionTime = Time.time;
+                return base.GetFollowDirection();
             }
         }
 
@@ -43,10 +39,11 @@ namespace Tanks {
             base.Start();
             reward = 10;
             armor = 8;
-            updateDelay /= 1.25f;
+            updateDelay = GameController.Instance.PlayerComunicator.UpdateRate / 1.25f;
 
             startFollowMovementTime = Time.time + randomMovementTime;
             changeRandomDirectionTime = Time.time;
+
         }
     }
 }

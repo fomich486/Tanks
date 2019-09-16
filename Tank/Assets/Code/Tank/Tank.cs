@@ -5,14 +5,16 @@ using Tanks.Weapons;
 
 namespace Tanks
 {
-    public abstract class Tank : MonoBehaviour
+    //TODO: add Idestractable element to comunicate with projectiles and have GET and SET methods
+    public abstract class Tank : MonoBehaviour, IDamageable
     {
         #region Movement
         private float nextUpdateTime = 0f;
         [SerializeField]
-        protected float updateDelay = 0.2f;
+        protected float updateDelay = 0.5f;
 
         protected Vector3 currentDirection;
+        //TODO: ramake to method
         public virtual Vector3 CurrentDirection
         {
             get => currentDirection;
@@ -24,18 +26,22 @@ namespace Tanks
         protected Weapon currentWeapon;
         protected bool canShoot = true;
         public Vector3 TowerPosition { get => transform.position + Vector3.up * transform.localScale.y / 2; }
+
+
         #endregion
 
         #region Health
         protected int armor;
-        public virtual int Armor
+        public int Armor => armor;
+        public void ReceiveDamage(int _damage)
         {
-            get => armor;
-            set
-            {
-                if (armor <= 0)
-                    Die();
-            }
+            armor -= _damage;
+            if (armor <= 0)
+                Die();
+        }
+        public virtual void Die()
+        {
+            Destroy(gameObject);
         }
         #endregion
 
@@ -58,8 +64,6 @@ namespace Tanks
             if(canShoot)
                 currentWeapon.Use();
         }
-
-        protected abstract void Die();
 
         protected virtual bool CheckBorders(Vector3 _nextPosition)
         {
@@ -101,6 +105,7 @@ namespace Tanks
                 nextUpdateTime = Time.time + updateDelay;
             }
         }
+
         #endregion
     }
 }
