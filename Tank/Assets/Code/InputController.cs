@@ -6,12 +6,11 @@ using Tanks;
 
 namespace Controlls
 {
-    [RequireComponent(typeof(PlayerTank))]
     public class InputController : MonoBehaviour
     {
         private PlayerTank playerTank;
 
-        private void Awake()
+        private void Start()
         {
             playerTank = GetComponent<PlayerTank>();
         }
@@ -48,8 +47,14 @@ namespace Controlls
 
         private void ChangeWeaponInput()
         {
-
-            //throw new NotImplementedException();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                playerTank.NextWeapon();
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                playerTank.PrevWeapon();
+            }
         }
 
         private void LookAtMouse()

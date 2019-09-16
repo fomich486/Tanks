@@ -6,7 +6,7 @@ using Tanks.Weapons;
 namespace Tanks
 {
     //TODO: add Idestractable element to comunicate with projectiles and have GET and SET methods
-    public abstract class Tank : MonoBehaviour, IDamageable
+    public abstract class Tank : MonoBehaviour, IDamageable, ISpawnable
     {
         #region Movement
         private float nextUpdateTime = 0f;
@@ -34,6 +34,9 @@ namespace Tanks
         protected int maxArmor;
         protected int armor;
         public int Armor => armor;
+
+        public Transform GameobjectTransform => transform;
+
         public virtual void ReceiveDamage(int _damage)
         {
             armor -= _damage;
@@ -43,6 +46,7 @@ namespace Tanks
         public virtual void Die()
         {
             Destroy(gameObject);
+            Destroy(currentWeapon.gameObject);
         }
         #endregion
 
@@ -86,11 +90,13 @@ namespace Tanks
             return false;
         }
 
-        public string TowerName = "Tower"
+        public string TowerName = "Tower2"
 ;        protected virtual void SpawnTower()
         {
-            GameObject _weapon = Resources.Load(TowerName) as GameObject;
-            currentWeapon = Instantiate(_weapon.GetComponent<Weapons.Weapon>(), TowerPosition, Quaternion.identity) as Weapons.Weapon;
+            //GameObject _weapon = Resources.Load(TowerName) as GameObject;
+            //currentWeapon = Instantiate(_weapon.GetComponent<Weapons.Weapon>(), TowerPosition, Quaternion.identity) as Weapons.Weapon;
+            weapon
+            currentWeapon = 
             currentWeapon.Init(this);
         }
         #endregion

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Tanks
 {
-    //TODO: Make comunication Interface for gamecontroller
+    [RequireComponent(typeof(Controlls.InputController))]
     public class PlayerTank : Tank,IPlayerComunicator
     {
         public Weapons.Weapon CurrentWeapon
@@ -37,12 +37,39 @@ namespace Tanks
         protected override void InitValues()
         {
             maxArmor = 20;
+            updateDelay = 0.25f;
+            TowerName = "Tower1";
         }
 
-        protected override void SpawnTower()
+        //TODO: Change this part on factory
+        public void NextWeapon()
         {
-            TowerName = "Tower3";
-            base.SpawnTower();
+            int current = int.Parse(TowerName[TowerName.Length - 1].ToString());
+            if (current < 3)
+            {
+                TowerName = "Tower" + (current+1).ToString();
+            }
+            else
+            {
+                TowerName = "Tower" + 1.ToString() ;
+            }
+            Destroy(currentWeapon.gameObject);
+            SpawnTower();
+        }
+
+        public void PrevWeapon()
+        {
+            int current = int.Parse(TowerName[TowerName.Length - 1].ToString());
+            if (current > 0)
+            {
+                TowerName = "Tower" + (current - 1).ToString();
+            }
+            else
+            {
+                TowerName = "Tower" + 3.ToString();
+            }
+            Destroy(currentWeapon.gameObject);
+            SpawnTower();
         }
     }
 }

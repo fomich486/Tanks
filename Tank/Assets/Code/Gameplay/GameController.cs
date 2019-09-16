@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Environment;
+using FactorySpace;
+using Tanks;
 
 public class GameController : MonoBehaviour
 {
@@ -21,6 +23,10 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Transform playerPrefab;
     public IPlayerComunicator PlayerComunicator;
+    
+
+    [Header("Factory")]
+    private Factory tankFactory;
 
     //Move to level
     public Vector2 MapSize
@@ -46,7 +52,16 @@ public class GameController : MonoBehaviour
         Level lvl = Instantiate(level) as Level;
         lvl.Init(MapSize);
 
-        PlayerComunicator  = (Instantiate(playerPrefab, Vector3.up * 0.5f, Quaternion.identity) as Transform).GetComponent<IPlayerComunicator>();
+        tankFactory = FactoryProducer.GetFactory(FactoryProductType.Tanks);
+
+        PlayerComunicator = tankFactory.GetProduct((int)TankTypes.Player).GameobjectTransform.GetComponent<IPlayerComunicator>();
+
+        for (int _tanksToSpawn = 5; _tanksToSpawn > 0; _tanksToSpawn--)
+             tankFactory.GetProduct((int)TankTypes.GreenEnemy);
+    }
+
+    protected void SpawnEnemyTank()
+    {
     }
 
 }

@@ -9,11 +9,14 @@ namespace Tanks.Weapons
         protected int damage;
         protected Vector3 direction;
         protected float speed = 10;
+        Rigidbody rb;
 
         public void Init(int _damage, Vector3 _direction)
         {
             damage = _damage;
             direction = _direction.normalized;
+            rb = GetComponent<Rigidbody>();
+            rb.velocity = direction * speed;
         }
 
         protected virtual void Update()
@@ -23,7 +26,7 @@ namespace Tanks.Weapons
             {
                 Die();
             }
-            transform.Translate(direction * speed * Time.deltaTime);
+            
         }
 
         public void OnCollisionEnter(Collision collision)
