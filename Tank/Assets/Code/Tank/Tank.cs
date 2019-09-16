@@ -86,9 +86,10 @@ namespace Tanks
             return false;
         }
 
-        protected virtual void SpawnTower()
+        public string TowerName = "Tower"
+;        protected virtual void SpawnTower()
         {
-            GameObject _weapon = Resources.Load("Tower") as GameObject;
+            GameObject _weapon = Resources.Load(TowerName) as GameObject;
             currentWeapon = Instantiate(_weapon.GetComponent<Weapons.Weapon>(), TowerPosition, Quaternion.identity) as Weapons.Weapon;
             currentWeapon.Init(this);
         }

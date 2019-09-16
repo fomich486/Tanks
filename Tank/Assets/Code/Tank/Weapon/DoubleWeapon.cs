@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace Tanks.Weapons
 {
-    public class SimpleWeapon : Weapon
+    public class DoubleWeapon : Weapon
     {
-
         protected override void Start()
         {
-            damage = 1;
-            interval = 0.5f;
+            damage = 2;
+            interval = 0.15f;
         }
     }
 }

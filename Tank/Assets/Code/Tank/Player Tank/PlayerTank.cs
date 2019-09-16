@@ -38,5 +38,11 @@ namespace Tanks
         {
             maxArmor = 20;
         }
+
+        protected override void SpawnTower()
+        {
+            TowerName = "Tower3";
+            base.SpawnTower();
+        }
     }
 }

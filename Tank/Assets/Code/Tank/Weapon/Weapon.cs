@@ -9,11 +9,16 @@ namespace Tanks.Weapons
     {
         private Tank tankToFollow;
 
+        protected float interval = 1f;
+        private float nextSpawn = 0;
         public bool canShoot = true;
+
         [SerializeField]
         protected int damage;
         [SerializeField]
         protected List<Transform> muzzles;
+
+        protected abstract void Start();
 
         public void Init(Tank _tank)
         {
@@ -22,11 +27,15 @@ namespace Tanks.Weapons
 
         public virtual void Use()
         {
-            GameObject _projectile = Resources.Load("Projectile") as GameObject;
-            foreach (var _muzzle in muzzles)
+            if (Time.time > nextSpawn)
             {
+                GameObject _projectile = Resources.Load("Projectile") as GameObject;
+                foreach (var _muzzle in muzzles)
+                {
                 Projectile _p = Instantiate(_projectile.GetComponent<Projectile>(), _muzzle.position, Quaternion.identity) as Projectile;
-                _p.Init(damage, transform.forward);
+                _p.Init(damage, _muzzle.up);
+                }
+                nextSpawn = Time.time + interval;
             }
         }
 

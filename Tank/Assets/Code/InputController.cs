@@ -40,7 +40,7 @@ namespace Controlls
 
         private void ControllShootInput()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 playerTank.Shoot();
             }
