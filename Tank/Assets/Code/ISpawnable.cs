@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ISpawnable
 {
-    Transform GameobjectTransform { get; }
+     Transform Type { get; }
 }

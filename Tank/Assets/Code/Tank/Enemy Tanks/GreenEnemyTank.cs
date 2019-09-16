@@ -67,7 +67,7 @@ namespace Tanks
             reward = 5;
             maxArmor = 4;
             updateDelay = GameController.Instance.PlayerComunicator.UpdateRate / 1.4f;
-            TowerName = "Tower1";
+            weaponType = FactorySpace.WeaponsTypes.Simple;
         }
     }
 }

@@ -69,7 +69,7 @@ namespace Tanks
             reward = 15;
             basicIteraion = GameController.Instance.PlayerComunicator.UpdateRate;
             lastPlayerPosition = GameController.Instance.PlayerComunicator.Position;
-            TowerName = "Tower2";
+            weaponType = FactorySpace.WeaponsTypes.Double;
         }
     }
 }

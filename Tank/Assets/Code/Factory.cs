@@ -51,7 +51,9 @@ namespace FactorySpace
     {
         public override ISpawnable GetProduct(int _weaponType)
         {
-            GameObject _weaponSpawned = Resources.Load("Tower" + (int)_weaponType) as GameObject;
+            Debug.Log("Path is == " + "Tower" + _weaponType.ToString());
+            GameObject _weaponSpawned = Resources.Load("Tower" + _weaponType.ToString()) as GameObject;
+            _weaponSpawned = MonoBehaviour.Instantiate(_weaponSpawned) as GameObject;
             return _weaponSpawned.GetComponent<ISpawnable>();
         }
     }
@@ -63,19 +65,13 @@ namespace FactorySpace
             switch (_type) {
                 case FactoryProductType.Tanks:
                     return new TankFactory();
+                case FactoryProductType.Weapons:
+                    return new WeaponFactory();
                 default:
                     return null;
             }
         }
     }
-
-    //public class WeaponFactory : Factory
-    //{
-    //    public override ISpawnable GetProduct(string _productName)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-    //}
 
     public enum TankTypes
     {

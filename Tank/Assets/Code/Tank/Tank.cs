@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Tanks.Weapons;
+using FactorySpace;
 
 namespace Tanks
 {
     //TODO: add Idestractable element to comunicate with projectiles and have GET and SET methods
     public abstract class Tank : MonoBehaviour, IDamageable, ISpawnable
     {
+
         #region Movement
         private float nextUpdateTime = 0f;
         [SerializeField]
@@ -24,7 +26,8 @@ namespace Tanks
 
         #region Weapon
         protected Weapon currentWeapon;
-
+        protected Factory weaponFactory;
+        protected WeaponsTypes weaponType;
         public Vector3 TowerPosition { get => transform.position + Vector3.up * transform.localScale.y / 2; }
 
 
@@ -35,7 +38,7 @@ namespace Tanks
         protected int armor;
         public int Armor => armor;
 
-        public Transform GameobjectTransform => transform;
+        public Transform Type => transform;
 
         public virtual void ReceiveDamage(int _damage)
         {
@@ -90,13 +93,12 @@ namespace Tanks
             return false;
         }
 
-        public string TowerName = "Tower2"
-;        protected virtual void SpawnTower()
+        protected virtual void SpawnTower()
         {
             //GameObject _weapon = Resources.Load(TowerName) as GameObject;
             //currentWeapon = Instantiate(_weapon.GetComponent<Weapons.Weapon>(), TowerPosition, Quaternion.identity) as Weapons.Weapon;
-            weapon
-            currentWeapon = 
+            weaponFactory = FactoryProducer.GetFactory(FactoryProductType.Weapons);
+            currentWeapon = weaponFactory.GetProduct((int)weaponType).Type.GetComponent<Weapon>();
             currentWeapon.Init(this);
         }
         #endregion

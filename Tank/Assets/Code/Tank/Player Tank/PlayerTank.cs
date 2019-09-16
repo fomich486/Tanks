@@ -38,20 +38,19 @@ namespace Tanks
         {
             maxArmor = 20;
             updateDelay = 0.25f;
-            TowerName = "Tower1";
+            weaponType = FactorySpace.WeaponsTypes.Double -1;
         }
 
         //TODO: Change this part on factory
         public void NextWeapon()
         {
-            int current = int.Parse(TowerName[TowerName.Length - 1].ToString());
-            if (current < 3)
+            if ((int)weaponType < 2)
             {
-                TowerName = "Tower" + (current+1).ToString();
+               weaponType = weaponType + 1;
             }
             else
             {
-                TowerName = "Tower" + 1.ToString() ;
+                weaponType =FactorySpace.WeaponsTypes.Simple;
             }
             Destroy(currentWeapon.gameObject);
             SpawnTower();
@@ -59,14 +58,13 @@ namespace Tanks
 
         public void PrevWeapon()
         {
-            int current = int.Parse(TowerName[TowerName.Length - 1].ToString());
-            if (current > 0)
+            if ((int)weaponType > 0)
             {
-                TowerName = "Tower" + (current - 1).ToString();
+                weaponType = weaponType - 1;
             }
             else
             {
-                TowerName = "Tower" + 3.ToString();
+                weaponType =FactorySpace.WeaponsTypes.FourMuzzle;
             }
             Destroy(currentWeapon.gameObject);
             SpawnTower();

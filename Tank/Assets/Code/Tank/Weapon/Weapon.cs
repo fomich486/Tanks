@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tanks.Weapons
 {
-    public abstract class Weapon : MonoBehaviour
+    public abstract class Weapon : MonoBehaviour,ISpawnable
     {
         private Tank tankToFollow;
 
@@ -18,11 +18,14 @@ namespace Tanks.Weapons
         [SerializeField]
         protected List<Transform> muzzles;
 
+        public Transform Type =>transform;
+
         protected abstract void Start();
 
         public void Init(Tank _tank)
         {
             tankToFollow = _tank;
+            FollowTank();
         }
 
         public virtual void Use()

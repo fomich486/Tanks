@@ -42,7 +42,7 @@ namespace Tanks {
 
             startFollowMovementTime = Time.time + randomMovementTime;
             changeRandomDirectionTime = Time.time;
-            TowerName = "Tower2";
+            weaponType = FactorySpace.WeaponsTypes.Double;
         }
     }
 }
