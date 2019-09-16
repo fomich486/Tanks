@@ -25,33 +25,19 @@ namespace Tanks
             Debug.DrawRay(transform.position, _directionToPlayer.normalized * 10, Color.red);
             Debug.DrawLine(transform.position, _playerPosition, Color.green);
 
+            transform.rotation = Quaternion.LookRotation(_directionToPlayer);
+
             float _distance = Vector3.Distance(transform.position, _playerPosition);
 
             //TODO : add something like attack distance for yellow tank
             if (_distance < atackDistance)
             {
-                if (_directionToPlayer.x == 0 || _directionToPlayer.z == 0)
-                {
                     currentWeapon.canShoot = true;
                     currentDirection = Vector3.zero;
-                    transform.rotation = Quaternion.LookRotation(_directionToPlayer);
-                }
-                else
-                {
-                    currentDirection = lastMoveDirection;
-                }
             }
             else
             {
-                if (Mathf.Abs(_directionToPlayer.x) >= Mathf.Abs(_directionToPlayer.z))
-                {
-                    currentDirection = (int)(Mathf.Abs(_directionToPlayer.x) / _directionToPlayer.x) * Vector3.right;
-                }
-                else
-                {
-                    currentDirection = (int)(Mathf.Abs(_directionToPlayer.z) / _directionToPlayer.z) * Vector3.forward;
-                }
-                lastMoveDirection = currentDirection.normalized;
+                currentDirection = _directionToPlayer;
             }
 
             return currentDirection.normalized;
@@ -66,7 +52,7 @@ namespace Tanks
         {
             reward = 5;
             maxArmor = 4;
-            updateDelay = GameController.Instance.PlayerComunicator.UpdateRate / 1.4f;
+            speed = GameController.Instance.PlayerComunicator.Speed / 1.4f;
             weaponType = FactorySpace.WeaponsTypes.Simple;
         }
     }

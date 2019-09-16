@@ -11,23 +11,10 @@ namespace Tanks
         {
             get => currentWeapon;
         }
-        public override Vector3 CurrentDirection
-        {
-            get => currentDirection;
-            set
-            {
-                if (value == Vector3.right || value == Vector3.left || value == Vector3.forward || value == Vector3.back || value == Vector3.zero )
-                    {
-                    currentDirection = value;
-                }
-                else
-                    return;
-            }
-        }
 
         public Vector3 Position => transform.position;
 
-        public float UpdateRate => updateDelay;
+        public float Speed => speed;
 
         public override void Die()
         {
@@ -37,7 +24,7 @@ namespace Tanks
         protected override void InitValues()
         {
             maxArmor = 20;
-            updateDelay = 0.25f;
+            speed = 5f;
             weaponType = FactorySpace.WeaponsTypes.Double -1;
         }
 

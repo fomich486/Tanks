@@ -17,12 +17,12 @@ namespace Tanks {
             {
                 if (Time.time > changeRandomDirectionTime)
                 {
-                    currentDirection = Utility.GetRandomDirectionForTankMovement(currentDirection);
+                    currentDirection = Utility.GetRandomDirectionForTankMovement();
                     changeRandomDirectionTime = Time.time + randomMovementTime / changeDirectionTimes;
                 }
                 return currentDirection;
             }
-            else if (Time.time < startFollowMovementTime + followMovementTime - updateDelay)
+            else if (Time.time < startFollowMovementTime + followMovementTime)
             {
                 return base.GetFollowDirection();
             }
@@ -38,7 +38,7 @@ namespace Tanks {
         {
             reward = 10;
             maxArmor = 8;
-            updateDelay = GameController.Instance.PlayerComunicator.UpdateRate / 1.25f;
+            speed = GameController.Instance.PlayerComunicator.Speed / 1.25f;
 
             startFollowMovementTime = Time.time + randomMovementTime;
             changeRandomDirectionTime = Time.time;

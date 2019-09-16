@@ -56,8 +56,8 @@ public class GameController : MonoBehaviour
 
         PlayerComunicator = tankFactory.GetProduct((int)TankTypes.Player).Type.GetComponent<IPlayerComunicator>();
 
-        //for (int _tanksToSpawn = 5; _tanksToSpawn > 0; _tanksToSpawn--)
-        //     tankFactory.GetProduct((int)TankTypes.GreenEnemy);
+        for (int _tanksToSpawn = 2; _tanksToSpawn > 0; _tanksToSpawn--)
+            tankFactory.GetProduct((int)TankTypes.RedEnemy);
     }
 
     protected void SpawnEnemyTank()

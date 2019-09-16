@@ -4,13 +4,10 @@ using UnityEngine;
 
 public static class Utility
 {
-    private static List<Vector3> directions = new List<Vector3>(){Vector3.right, Vector3.left, Vector3.forward, Vector3.back };
-
-    public static Vector3 GetRandomDirectionForTankMovement(Vector3 _currentDirecton)
+    public static Vector3 GetRandomDirectionForTankMovement()
     {
-        List<Vector3> _temp = new List<Vector3>(directions);
-        _temp.Remove(_currentDirecton);
-        int _rand = Random.Range(0, _temp.Count);
-        return _temp[_rand];
+        float x = Random.Range(-1f, 1f);
+        float z = Random.Range(-1f, 1f);
+        return new Vector3(x, 0f, z).normalized;
     }
 }

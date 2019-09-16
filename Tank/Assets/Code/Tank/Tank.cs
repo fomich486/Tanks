@@ -7,13 +7,14 @@ using FactorySpace;
 namespace Tanks
 {
     //TODO: add Idestractable element to comunicate with projectiles and have GET and SET methods
+    [RequireComponent(typeof(Rigidbody))]
     public abstract class Tank : MonoBehaviour, IDamageable, ISpawnable
     {
 
         #region Movement
-        private float nextUpdateTime = 0f;
-        [SerializeField]
-        protected float updateDelay = 0.5f;
+
+        protected Rigidbody rb;
+        protected float speed;
 
         protected Vector3 currentDirection;
         //TODO: ramake to method
@@ -59,10 +60,10 @@ namespace Tanks
 
         protected virtual void Move()
         {
-            Vector3 _nextPosition = transform.position + CurrentDirection;
+            Vector3 _nextPosition = transform.position + rb.velocity*Time.deltaTime;
             if (!CheckBorders(_nextPosition)) // TODO: add checker for filled tile
             {
-                transform.position = _nextPosition;
+                rb.velocity = CurrentDirection.normalized * speed;
             }
 
             if (currentDirection != Vector3.zero)
@@ -95,8 +96,6 @@ namespace Tanks
 
         protected virtual void SpawnTower()
         {
-            //GameObject _weapon = Resources.Load(TowerName) as GameObject;
-            //currentWeapon = Instantiate(_weapon.GetComponent<Weapons.Weapon>(), TowerPosition, Quaternion.identity) as Weapons.Weapon;
             weaponFactory = FactoryProducer.GetFactory(FactoryProductType.Weapons);
             currentWeapon = weaponFactory.GetProduct((int)weaponType).Type.GetComponent<Weapon>();
             currentWeapon.Init(this);
@@ -106,6 +105,7 @@ namespace Tanks
         #region BehaviourMethods
         protected virtual void Start()
         {
+            rb = GetComponent<Rigidbody>();
             InitValues();
             SpawnTower();
             armor = maxArmor;
@@ -113,11 +113,7 @@ namespace Tanks
 
         protected virtual void Update()
         {
-            if (Time.time > nextUpdateTime)
-            {
-                Move();
-                nextUpdateTime = Time.time + updateDelay;
-            }
+            Move();
         }
 
         #endregion

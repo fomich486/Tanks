@@ -3,5 +3,5 @@
 public interface IPlayerComunicator
 {
     Vector3 Position { get; }
-    float UpdateRate { get; }
+    float Speed { get; }
 }

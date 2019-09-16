@@ -34,7 +34,7 @@ namespace Tanks
         protected override void Update()
         {
             base.Update();
-            Shoot();
+           // Shoot();
             HealthBarUpdate();
         }
 
@@ -42,6 +42,12 @@ namespace Tanks
         {
             base.SpawnTower();
             currentWeapon.transform.parent = transform;
+        }
+
+        public override void Die()
+        {
+            Destroy(healthBar.gameObject);
+            base.Die();
         }
     }
 }
