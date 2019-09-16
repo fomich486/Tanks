@@ -7,7 +7,6 @@ namespace Tanks
     public class GreenEnemyTank : EnemyTank
     { 
         private Vector3 lastMoveDirection;
-        protected float atackDistance;
 
         public override Vector3 CurrentDirection
         {
@@ -19,7 +18,7 @@ namespace Tanks
 
         protected virtual Vector3 GetFollowDirection()
         {
-            canShoot = false;
+            currentWeapon.canShoot = false;
             Vector3 _playerPosition = GameController.Instance.PlayerComunicator.Position;
             Vector3 _directionToPlayer = _playerPosition - transform.position;
 
@@ -33,7 +32,7 @@ namespace Tanks
             {
                 if (_directionToPlayer.x == 0 || _directionToPlayer.z == 0)
                 {
-                    canShoot = true;
+                    currentWeapon.canShoot = true;
                     currentDirection = Vector3.zero;
                     transform.rotation = Quaternion.LookRotation(_directionToPlayer);
                 }
@@ -58,19 +57,16 @@ namespace Tanks
             return currentDirection.normalized;
         }
 
-        protected override void Start()
-        {
-            base.Start();
-            reward = 5;
-            armor = 4;
-            updateDelay = GameController.Instance.PlayerComunicator.UpdateRate/ 1.4f;
-            atackDistance = GameController.Instance.ScreenDiagonal / 3;
-        }
-
         public override void Die()
         {
             base.Die();
         }
 
+        protected override void InitValues()
+        {
+            reward = 5;
+            maxArmor = 4;
+            updateDelay = GameController.Instance.PlayerComunicator.UpdateRate / 1.4f;
+        }
     }
 }

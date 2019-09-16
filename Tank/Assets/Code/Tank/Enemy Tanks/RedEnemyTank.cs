@@ -63,14 +63,11 @@ namespace Tanks
             return currentDirection.normalized;
         }
 
-        protected override void Start()
+        protected override void InitValues()
         {
-            base.Start();
+            maxArmor = 10;
             reward = 15;
-            armor = 10;
-            //TODO: getPlayerInfo from game controller
             basicIteraion = GameController.Instance.PlayerComunicator.UpdateRate;
-
             lastPlayerPosition = GameController.Instance.PlayerComunicator.Position;
         }
     }

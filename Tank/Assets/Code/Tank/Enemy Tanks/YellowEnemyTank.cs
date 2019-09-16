@@ -34,16 +34,14 @@ namespace Tanks {
             }
         }
 
-        protected override void Start()
+        protected override void InitValues()
         {
-            base.Start();
             reward = 10;
-            armor = 8;
+            maxArmor = 8;
             updateDelay = GameController.Instance.PlayerComunicator.UpdateRate / 1.25f;
 
             startFollowMovementTime = Time.time + randomMovementTime;
             changeRandomDirectionTime = Time.time;
-
         }
     }
 }

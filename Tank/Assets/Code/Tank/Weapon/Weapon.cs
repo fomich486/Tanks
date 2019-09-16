@@ -8,6 +8,8 @@ namespace Tanks.Weapons
     public abstract class Weapon : MonoBehaviour
     {
         private Tank tankToFollow;
+
+        public bool canShoot = true;
         [SerializeField]
         protected int damage;
         [SerializeField]

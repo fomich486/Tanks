@@ -34,5 +34,9 @@ namespace Tanks
             base.Die();
         }
 
+        protected override void InitValues()
+        {
+            maxArmor = 20;
+        }
     }
 }

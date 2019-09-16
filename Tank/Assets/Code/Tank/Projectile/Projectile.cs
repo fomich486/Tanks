@@ -18,12 +18,29 @@ namespace Tanks.Weapons
 
         protected virtual void Update()
         {
+            if (transform.position.x > GameController.Instance.MapSize.x / 2 || transform.position.x < -GameController.Instance.MapSize.x / 2 ||
+                transform.position.z > GameController.Instance.MapSize.y / 2 || transform.position.z < -GameController.Instance.MapSize.y / 2)
+            {
+                Die();
+            }
             transform.Translate(direction * speed * Time.deltaTime);
         }
 
         public void OnCollisionEnter(Collision collision)
         {
-            
+            IDamageable damageble = collision.gameObject.GetComponent<IDamageable>();
+            print(collision.collider.name);
+            if (damageble != null)
+            {
+                print("Projectile is aimed");
+                damageble.ReceiveDamage(damage);
+                Die();
+            }
+        }
+
+        void Die()
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -17,7 +17,6 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int height = 3;
 
-    //TODO : Change it all on PlayerTank for information for enemy tanks
     [Header("PlayerTank")]
     [SerializeField]
     private Transform playerPrefab;

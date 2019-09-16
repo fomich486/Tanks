@@ -24,16 +24,17 @@ namespace Tanks
 
         #region Weapon
         protected Weapon currentWeapon;
-        protected bool canShoot = true;
+
         public Vector3 TowerPosition { get => transform.position + Vector3.up * transform.localScale.y / 2; }
 
 
         #endregion
 
         #region Health
+        protected int maxArmor;
         protected int armor;
         public int Armor => armor;
-        public void ReceiveDamage(int _damage)
+        public virtual void ReceiveDamage(int _damage)
         {
             armor -= _damage;
             if (armor <= 0)
@@ -46,6 +47,8 @@ namespace Tanks
         #endregion
 
         #region Methods
+
+        protected abstract void InitValues();
 
         protected virtual void Move()
         {
@@ -61,7 +64,7 @@ namespace Tanks
 
         public virtual void Shoot()
         {
-            if(canShoot)
+            if(currentWeapon.canShoot)
                 currentWeapon.Use();
         }
 
@@ -94,7 +97,9 @@ namespace Tanks
         #region BehaviourMethods
         protected virtual void Start()
         {
+            InitValues();
             SpawnTower();
+            armor = maxArmor;
         }
 
         protected virtual void Update()
