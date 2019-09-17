@@ -61,7 +61,7 @@ namespace Tanks
         protected virtual void Move()
         {
             Vector3 _nextPosition = transform.position + rb.velocity*Time.deltaTime;
-            if (!CheckBorders(_nextPosition)) // TODO: add checker for filled tile
+            if (!CheckBorders(_nextPosition))
             {
                 rb.velocity = CurrentDirection.normalized * speed;
             }

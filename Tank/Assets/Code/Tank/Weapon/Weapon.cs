@@ -7,6 +7,9 @@ namespace Tanks.Weapons
 {
     public abstract class Weapon : MonoBehaviour,ISpawnable
     {
+        public string Name;
+        public Sprite Image;
+
         private Tank tankToFollow;
 
         protected float interval = 1f;
@@ -20,9 +23,7 @@ namespace Tanks.Weapons
 
         public Transform Type =>transform;
 
-        protected abstract void Start();
-
-        public void Init(Tank _tank)
+        public virtual void Init(Tank _tank)
         {
             tankToFollow = _tank;
             FollowTank();

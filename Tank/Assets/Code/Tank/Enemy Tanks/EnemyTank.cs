@@ -9,7 +9,6 @@ namespace Tanks
         protected float atackDistance;
 
         protected int reward;
-        protected virtual int Reward { get => reward; }
 
         private EnemyHealthbar healthBar;
         private Vector3 healthBarOffset;
@@ -31,8 +30,11 @@ namespace Tanks
 
         protected override void Update()
         {
-            base.Update();
-           // Shoot();
+            if (GameController.Instance.PlayerComunicator != null)
+                Move();
+            else
+                print("I think player comunicator is null");
+            Shoot();
             HealthBarUpdate();
         }
 
@@ -44,6 +46,7 @@ namespace Tanks
 
         public override void Die()
         {
+            GameController.Instance.Score = reward;
             Destroy(healthBar.gameObject);
             base.Die();
         }

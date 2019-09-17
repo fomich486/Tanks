@@ -10,7 +10,6 @@ public class EnemyHealthbar : MonoBehaviour
 
     public void ChangeHealth(float _currentHealthNormalized)
     {
-        print("Current health normalized " + _currentHealthNormalized);
         healthBarSlider.value = _currentHealthNormalized;
     }
 }

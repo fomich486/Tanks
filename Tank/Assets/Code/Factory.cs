@@ -51,7 +51,6 @@ namespace FactorySpace
     {
         public override ISpawnable GetProduct(int _weaponType)
         {
-            Debug.Log("Path is == " + "Tower" + _weaponType.ToString());
             GameObject _weaponSpawned = Resources.Load("Tower" + _weaponType.ToString()) as GameObject;
             _weaponSpawned = MonoBehaviour.Instantiate(_weaponSpawned) as GameObject;
             return _weaponSpawned.GetComponent<ISpawnable>();

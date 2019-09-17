@@ -18,6 +18,7 @@ namespace Tanks
 
         public override void Die()
         {
+            GameController.Instance.Attemp -= 1;
             base.Die();
         }
 
@@ -55,6 +56,13 @@ namespace Tanks
             }
             Destroy(currentWeapon.gameObject);
             SpawnTower();
+        }
+
+        protected override void SpawnTower()
+        {
+            base.SpawnTower();
+            HUD.Instance.SetaWeaponName(currentWeapon.Name);
+            HUD.Instance.SetWeaponImage(currentWeapon.Image);
         }
     }
 }

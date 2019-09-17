@@ -25,16 +25,6 @@ namespace Controlls
 
         private void ControllMovementInput()
         {
-            //if (Input.GetKey(KeyCode.W))
-            //    playerTank.CurrentDirection = Vector3.forward;
-            //else if (Input.GetKey(KeyCode.S))
-            //    playerTank.CurrentDirection = Vector3.back;
-            //else if (Input.GetKey(KeyCode.D))
-            //    playerTank.CurrentDirection = Vector3.right;
-            //else if (Input.GetKey(KeyCode.A))
-            //    playerTank.CurrentDirection = Vector3.left;
-            //else
-            //    playerTank.CurrentDirection = Vector3.zero;
             float _x = Input.GetAxis("Horizontal");
             float _z = Input.GetAxis("Vertical");
             Vector3 _newDirection = new Vector3(_x, 0f, _z);

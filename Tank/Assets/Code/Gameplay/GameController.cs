@@ -4,6 +4,7 @@ using UnityEngine;
 using Environment;
 using FactorySpace;
 using Tanks;
+using UnityEngine.Events;
 
 public class GameController : MonoBehaviour
 {
@@ -24,9 +25,42 @@ public class GameController : MonoBehaviour
     private Transform playerPrefab;
     public IPlayerComunicator PlayerComunicator;
     
-
     [Header("Factory")]
     private Factory tankFactory;
+
+    [Header("GameSettings")]
+    private int attemp = 3;
+    public int Attemp {
+        get => attemp;
+        set
+        {
+            PlayerComunicator = null;
+            attemp = value;
+            HUD.Instance.SetAttemp(attemp);
+            if (attemp > 0)
+            {
+                PlayerComunicator = tankFactory.GetProduct((int)TankTypes.Player).Type.GetComponent<IPlayerComunicator>();
+            }
+            else
+            {
+                GameoverEvent.Invoke();
+            }
+        }
+    }
+
+    private int score = 0;
+    public int Score
+    {
+        get => score;
+        set
+        {
+            score += value;
+            HUD.Instance.SetScore(score);
+        }
+    }
+    [Header("Events")]
+    public UnityEvent GameoverEvent;
+
 
     //Move to level
     public Vector2 MapSize
@@ -54,10 +88,12 @@ public class GameController : MonoBehaviour
 
         tankFactory = FactoryProducer.GetFactory(FactoryProductType.Tanks);
 
-        PlayerComunicator = tankFactory.GetProduct((int)TankTypes.Player).Type.GetComponent<IPlayerComunicator>();
+        GameoverEvent.AddListener(() => HUD.Instance.ShowGameoverScreen(score));
+
+        Attemp=attemp;
 
         for (int _tanksToSpawn = 2; _tanksToSpawn > 0; _tanksToSpawn--)
-            tankFactory.GetProduct((int)TankTypes.YellowEnemy);
+            tankFactory.GetProduct((int)TankTypes.GreenEnemy);
     }
 
     protected void SpawnEnemyTank()

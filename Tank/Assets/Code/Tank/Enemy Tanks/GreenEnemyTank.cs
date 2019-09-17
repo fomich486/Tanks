@@ -11,7 +11,7 @@ namespace Tanks
         public override Vector3 CurrentDirection
         {
             get
-            {
+            { 
                 return GetFollowDirection();
             }
         }
