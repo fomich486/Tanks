@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tanks.Weapons;
 using FactorySpace;
+using UnityEngine.Events;
 
 namespace Tanks
 {
@@ -10,8 +11,9 @@ namespace Tanks
     [RequireComponent(typeof(Rigidbody))]
     public abstract class Tank : MonoBehaviour, IDamageable, ISpawnable
     {
-
         #region Movement
+        bool isDestroying = false;
+        protected string MaterialName;
 
         protected Rigidbody rb;
         protected float speed;
@@ -44,13 +46,16 @@ namespace Tanks
         public virtual void ReceiveDamage(int _damage)
         {
             armor -= _damage;
-            if (armor <= 0)
+            if (armor <= 0 && !isDestroying)
+            {
+                isDestroying = true;
                 Die();
+            }
         }
         public virtual void Die()
         {
-            Destroy(gameObject);
             Destroy(currentWeapon.gameObject);
+            Destroy(gameObject);
         }
         #endregion
 
@@ -100,6 +105,13 @@ namespace Tanks
             currentWeapon = weaponFactory.GetProduct((int)weaponType).Type.GetComponent<Weapon>();
             currentWeapon.Init(this);
         }
+
+        protected virtual void SwitchMaterial()
+        {
+            Material _mat = Resources.Load(MaterialName) as Material;
+            Renderer _renderer = GetComponent<Renderer>();
+            _renderer.sharedMaterial = _mat;
+        }
         #endregion
 
         #region BehaviourMethods
@@ -109,6 +121,7 @@ namespace Tanks
             InitValues();
             SpawnTower();
             armor = maxArmor;
+            SwitchMaterial();
         }
 
         protected virtual void Update()

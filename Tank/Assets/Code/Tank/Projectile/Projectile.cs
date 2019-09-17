@@ -29,14 +29,23 @@ namespace Tanks.Weapons
             
         }
 
-        public void OnCollisionEnter(Collision collision)
+        //public void OnCollisionEnter(Collision collision)
+        //{
+
+        //}
+
+        private void OnTriggerEnter(Collider collision)
         {
             IDamageable damageble = collision.gameObject.GetComponent<IDamageable>();
-            print(collision.collider.name);
+            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
             if (damageble != null)
             {
-                print("Projectile is aimed");
                 damageble.ReceiveDamage(damage);
+                Die();
+            }
+            if (projectile != null)
+            {
+                Destroy(collision.gameObject);
                 Die();
             }
         }

@@ -59,6 +59,7 @@ namespace Tanks
             lastPlayerPosition = GameController.Instance.PlayerComunicator.Position;
             weaponType = FactorySpace.WeaponsTypes.Double;
             atackDistance = GameController.Instance.ScreenDiagonal / 1.5f;
+            MaterialName = "Red";
         }
     }
 }

@@ -47,6 +47,7 @@ namespace Tanks
         public override void Die()
         {
             GameController.Instance.Score = reward;
+            GameController.Instance.CurrentEnemyTankCout--;
             Destroy(healthBar.gameObject);
             base.Die();
         }

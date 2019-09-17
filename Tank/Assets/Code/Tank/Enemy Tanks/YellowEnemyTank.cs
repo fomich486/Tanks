@@ -45,6 +45,7 @@ namespace Tanks {
             weaponType = FactorySpace.WeaponsTypes.Double;
 
             atackDistance = Mathf.Infinity;
+            MaterialName = "Yellow";
         }
     }
 }

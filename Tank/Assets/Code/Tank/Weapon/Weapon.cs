@@ -33,13 +33,18 @@ namespace Tanks.Weapons
         {
             if (Time.time > nextSpawn)
             {
-                GameObject _projectile = Resources.Load("Projectile") as GameObject;
-                foreach (var _muzzle in muzzles)
-                {
+                SpawnProjectile();
+                nextSpawn = Time.time + interval;
+            }
+        }
+
+        protected void SpawnProjectile()
+        {
+            GameObject _projectile = Resources.Load("Projectile") as GameObject;
+            foreach (var _muzzle in muzzles)
+            {
                 Projectile _p = Instantiate(_projectile.GetComponent<Projectile>(), _muzzle.position, Quaternion.identity) as Projectile;
                 _p.Init(damage, _muzzle.up);
-                }
-                nextSpawn = Time.time + interval;
             }
         }
 

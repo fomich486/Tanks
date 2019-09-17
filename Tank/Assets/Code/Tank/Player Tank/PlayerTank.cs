@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tanks
 {
@@ -18,8 +19,8 @@ namespace Tanks
 
         public override void Die()
         {
-            GameController.Instance.Attemp -= 1;
-            base.Die();
+            //GameController.Instance.Attemp -= 1;
+            //base.Die();
         }
 
         protected override void InitValues()
@@ -27,6 +28,7 @@ namespace Tanks
             maxArmor = 20;
             speed = 5f;
             weaponType = FactorySpace.WeaponsTypes.Double -1;
+            MaterialName = "White";
         }
 
         //TODO: Change this part on factory

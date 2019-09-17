@@ -10,7 +10,8 @@ namespace Tanks.Weapons
         {
             base.Init(_tank);
             damage = 2;
-            interval = 0.15f;
+            //interval = 0.15f;
+            interval = 1.15f;
             Name = "Double Weapon";
             Image = Resources.Load<Sprite>(Name);
         }
