@@ -29,12 +29,12 @@ public class HUD : MonoBehaviour
 
     public void SetScore(int _score)
     {
-        scoreText.text = _score.ToString();
+        scoreText.text ="Current score is "+ _score.ToString();
     }
 
     public void SetAttemp(int _attemp)
     {
-        attemp.text = _attemp.ToString();
+        attemp.text = "Attemps left "+_attemp.ToString();
     }
 
     public void SetaWeaponName(string _name)
@@ -48,7 +48,10 @@ public class HUD : MonoBehaviour
 
     public void ShowGameoverScreen(int _finalScore)
     {
+        
         gameoverScreen.gameObject.SetActive(true);
-        gameoverScreen.finalScore.text = _finalScore.ToString();
+        gameoverScreen.lastScore.text ="Prev score " + SaveLoad.LoadAsJSON().LastScore;
+        gameoverScreen.finalScore.text ="Current score " + _finalScore.ToString();
+        SaveLoad.SaveAsJSON(_finalScore.ToString());
     }
 }
