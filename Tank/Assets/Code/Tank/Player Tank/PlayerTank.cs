@@ -19,8 +19,8 @@ namespace Tanks
 
         public override void Die()
         {
-            //GameController.Instance.Attemp -= 1;
-            //base.Die();
+            GameController.Instance.Attemp -= 1;
+            base.Die();
         }
 
         protected override void InitValues()

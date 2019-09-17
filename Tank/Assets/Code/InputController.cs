@@ -63,7 +63,7 @@ namespace Controlls
             if (plane.Raycast(ray, out distance))
             {
                 Vector3 position = ray.GetPoint(distance);
-                playerTank.CurrentWeapon.transform.LookAt(position);
+                playerTank.CurrentWeapon.transform.LookAt(new Vector3(position.x, playerTank.CurrentWeapon.transform.position.y,position.z));
             }
         }
     }

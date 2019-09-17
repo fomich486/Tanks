@@ -11,6 +11,7 @@ namespace Tanks
     [RequireComponent(typeof(Rigidbody))]
     public abstract class Tank : MonoBehaviour, IDamageable, ISpawnable
     {
+
         #region Movement
         bool isDestroying = false;
         protected string MaterialName;

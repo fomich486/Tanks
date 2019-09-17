@@ -15,6 +15,7 @@ namespace Tanks {
         {
             if (Time.time < startFollowMovementTime)
             {
+                currentWeapon.canShoot = false;
                 if (Time.time > changeRandomDirectionTime)
                 {
                     currentDirection = Utility.GetRandomDirectionForTankMovement();
@@ -38,7 +39,8 @@ namespace Tanks {
         {
             reward = 10;
             maxArmor = 8;
-            speed = GameController.Instance.PlayerComunicator.Speed / 1.25f;
+            if(GameController.Instance.PlayerComunicator!=null)
+                speed = GameController.Instance.PlayerComunicator.Speed / 1.25f;
 
             startFollowMovementTime = Time.time + randomMovementTime;
             changeRandomDirectionTime = Time.time;

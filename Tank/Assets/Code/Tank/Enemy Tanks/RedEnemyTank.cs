@@ -33,6 +33,7 @@ namespace Tanks
                 }
                 else
                 {
+                    currentWeapon.canShoot = false;
                     speed = basicIteraion * runUpdateCoef;
                 }
 
